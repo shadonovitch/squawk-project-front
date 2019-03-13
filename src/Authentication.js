@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Authentication extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = { email: '', password: '', token: '' };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -20,11 +20,25 @@ export default class Authentication extends Component {
 
   handleSubmit(event) {
     const { email, password } = this.state;
-    console.log(event, email, password);
+    event.preventDefault();
+    fetch('https://dirdapi.chaz.pro/auth/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email, password,
+      }),
+    }).then(response => response.json())
+      .then((responseJson) => {
+        this.setState({ token: responseJson.token });
+      })
+      .catch(error => this.setState({ token: error.message }));
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, token } = this.state;
 
     return (
       <div className="Auth">
@@ -39,6 +53,10 @@ export default class Authentication extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        <p>
+                        Token:
+          { token }
+        </p>
       </div>
     );
   }
