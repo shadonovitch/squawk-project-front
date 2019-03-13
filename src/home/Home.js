@@ -8,17 +8,35 @@ import { Redirect } from 'react-router-dom';
 class Home extends Component {
   constructor(props) {
     super(props);
+    const { cookies } = props;
+    this.state = {
+      token: cookies.get('token') || null,
+      handle: '',
+      email: '',
+    };
   }
 
-  componentWillMount() {
-    const { cookies } = this.props;
-    this.setState({
-      token: cookies.get('token') || null,
-    });
+  componentDidMount() {
+    const { token } = this.state;
+    fetch('https://dirdapi.chaz.pro/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((responseJson) => {
+        const { handle, email } = responseJson;
+        this.setState({
+          handle, email,
+        });
+      });
   }
 
   render() {
-    const { token } = this.state;
+    const { token, handle, email } = this.state;
     if (!token) {
       return (<Redirect to="/auth" />);
     }
@@ -26,8 +44,10 @@ class Home extends Component {
       <div>
         <Typography variant="h2">
           {' '}
-Token:
+Infos:
           {token}
+          {handle}
+          {email}
         </Typography>
       </div>
     );

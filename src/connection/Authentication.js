@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withCookies, Cookies } from 'react-cookie';
-import PropTypes, { instanceOf } from 'prop-types';
+import { instanceOf } from 'prop-types';
 import { DirdProvider } from '../comon/DirdContext';
 
 
