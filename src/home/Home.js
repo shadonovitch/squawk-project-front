@@ -4,11 +4,12 @@ import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import WoofForm from '../common/WoofForm';
-import WoofList from '../common/WoofList';
 
 const styles = {
   UserCard: {
     float: 'left',
+  },
+  Content: {
   },
 };
 
