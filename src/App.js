@@ -6,6 +6,8 @@ import './App.css';
 import Authentication from './connection/Authentication';
 import Register from './connection/Register';
 import Home from './home/Home';
+import User from './user/User';
+import NotFound from './common/NotFound';
 
 const App = () => {
   document.body.style = 'background: darkgray';
@@ -17,6 +19,8 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/auth" component={Authentication} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/:handle" component={User} />
+          <Route exact path="/404" component={NotFound} />
         </Switch>
       </CookiesProvider>
     </div>

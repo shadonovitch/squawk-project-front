@@ -3,7 +3,14 @@ import Typography from '@material-ui/core/Typography';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import WoofForm from '../common/WoofForm';
+import WoofList from '../common/WoofList';
 
+const styles = {
+  UserCard: {
+    float: 'left',
+  },
+};
 
 class Home extends Component {
   constructor(props) {
@@ -33,22 +40,42 @@ class Home extends Component {
           handle, email,
         });
       });
+    /* Fix backend image -- base64 ? */
+    /* fetch('https://dirdapi.chaz.pro/profile/picture', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(((response) => {
+      this.setState({ picture: response.picture });
+    })); */
   }
 
   render() {
-    const { token, handle, email } = this.state;
+    const {
+      token, handle, email,
+    } = this.state;
     if (!token) {
       return (<Redirect to="/auth" />);
     }
     return (
       <div>
-        <Typography variant="h2">
-          {' '}
-Infos:
-          {token}
-          {handle}
-          {email}
-        </Typography>
+        <div style={styles.UserCard}>
+          <Typography variant="h5">
+            {' '}
+            {'@'}
+            {' '}
+            {handle}
+            <br />
+            {email}
+          </Typography>
+
+        </div>
+        <div style={styles.Content}>
+          <WoofForm token={token} />
+        </div>
       </div>
     );
   }

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import { DirdProvider } from '../comon/DirdContext';
+import { DirdProvider } from '../common/DirdContext';
 
 
 const styles = ({
