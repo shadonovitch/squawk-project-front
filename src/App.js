@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import { CookiesProvider } from 'react-cookie';
 import './App.css';
 import Authentication from './connection/Authentication';
@@ -21,5 +22,6 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;
