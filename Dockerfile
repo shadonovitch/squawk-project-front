@@ -2,9 +2,11 @@ FROM node:latest
 ENV NPM_CONFIG_LOGLEVEL warn
 
 COPY package.json package.json
-RUN npm install && npm install pm2
-
+RUN npm install -g serve
+RUN npm install
 COPY . .
+RUN npm run build --production
 
-CMD npm run prod
+CMD serve -s build
+
 EXPOSE 3000
