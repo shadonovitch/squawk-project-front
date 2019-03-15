@@ -9,4 +9,4 @@ RUN npm run build --production
 
 CMD serve -s build
 
-EXPOSE 3000
+EXPOSE 5000
