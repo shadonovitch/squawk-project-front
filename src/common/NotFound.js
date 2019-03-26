@@ -2,8 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 
-class NotFound {
-  render() {
+function NotFound() {
     return (
       <div>
         <Typography variant="h4">
@@ -11,7 +10,6 @@ class NotFound {
         </Typography>
       </div>
     );
-  }
 }
 
 export default withRouter(NotFound);

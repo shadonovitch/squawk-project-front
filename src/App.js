@@ -21,8 +21,8 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/auth" component={Authentication} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/:handle" component={User} />
             <Route exact path="/404" component={NotFound} />
+            <Route exact path="/:handle" component={User} />
           </Switch>
         </CookiesProvider>
       </Provider>
