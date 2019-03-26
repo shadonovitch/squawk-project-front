@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import DefaultPicture from '../User.png';
+import DefaultPicture from '../DefaultUser.png';
 
 const UserCard = (props) => {
   const { handle, email, picture } = props;
