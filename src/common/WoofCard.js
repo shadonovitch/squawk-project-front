@@ -9,7 +9,7 @@ const WoofCard = (props) => {
       <Typography variant="h3">
         {handle}
       </Typography>
-      <Typography variant="p">
+      <Typography>
         {txt}
       </Typography>
     </div>

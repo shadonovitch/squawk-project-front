@@ -18,13 +18,15 @@ class WoofList extends Component {
 
   render() {
     const { woofArray } = this.props;
-
+    if (woofArray === undefined) {
+      return <div />;
+    }
     return (
       <div style={styles.WoofList}>
         <List>
           {woofArray.map(item => (
-            <ListItem>
-              <WoofCard handle={item.handle} txt={item.text} />
+            <ListItem key={item.id}>
+              <WoofCard key={item.id} handle={item.handle} txt={item.text} />
             </ListItem>
           ))}
         </List>

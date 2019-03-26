@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
+import store from '../redux/store';
+import { fetchUserWoofs } from '../redux/actions';
 
 const styles = {
   WoofForm: {
@@ -26,7 +28,6 @@ class WoofForm extends Component {
   }
 
   handleSubmit(event) {
-    console.log('handleSubmit fired');
     const { woof } = this.state;
     const { token } = this.props;
     event.preventDefault();
@@ -40,9 +41,8 @@ class WoofForm extends Component {
       body: JSON.stringify({
         text: woof,
       }),
-    }).then((response) => {
-      console.log(response);
-      this.setState({ woof: '' });
+    }).then(() => {
+      store.dispatch(fetchUserWoofs(token));
     });
   }
 
