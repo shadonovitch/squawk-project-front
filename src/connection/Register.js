@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography/Typography';
+import TextField from '@material-ui/core/TextField/TextField';
+import Button from '@material-ui/core/Button/Button';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import { Redirect } from 'react-router';
 
-export default class Register extends Component {
+const styles = ({
+  auth: {
+    position: 'absolute',
+    margin: 'auto',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '500px',
+    height: '300px',
+    backgroundColor: '#ccc',
+    borderRadius: '3px',
+  },
+});
+
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '', password: '', handle: '', token: '',
+      email: '', password: '', handle: '', redirect: false,
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -27,6 +48,8 @@ export default class Register extends Component {
 
   handleSubmit(event) {
     const { email, password, handle } = this.state;
+    const { cookies } = this.props;
+
     event.preventDefault();
     fetch('https://dirdapi.chaz.pro/register', {
       method: 'POST',
@@ -39,38 +62,49 @@ export default class Register extends Component {
       }),
     }).then(response => response.json())
       .then((responseJson) => {
-        this.setState({ token: responseJson.token });
+        if (responseJson.status === 'failed') this.setState({ errorMessage: responseJson.message });
+        else {
+          cookies.set('token', responseJson.token);
+          this.setState({ redirect: true });
+        }
       })
-      .catch(error => this.setState({ token: error.message }));
+      .catch(error => this.setState({ errorMessage: error.message }));
   }
 
   render() {
     const {
-      email, password, handle, token,
+      email, password, handle, errorMessage, redirect,
     } = this.state;
-
+    if (redirect === true) {
+      return <Redirect to="/" />;
+    }
     return (
-      <div className="Auth">
+      <div className="Auth" style={styles.auth}>
+        <Typography variant="h4" gutterBottom>
+          Dird Project
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Register
+        </Typography>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="filterAll">
-            Handle:
-            <input type="text" value={handle} onChange={this.handleChangeHandle} />
-          </label>
-          <label htmlFor="filterAll">
-            Email:
-            <input type="text" value={email} onChange={this.handleChangeEmail} />
-          </label>
-          <label htmlFor="filterAll">
-            Password:
-            <input type="text" value={password} onChange={this.handleChangePassword} />
-          </label>
-          <input type="submit" value="Submit" />
+          <TextField label="Handle" type="text" value={handle} onChange={this.handleChangeHandle} />
+          <br />
+          <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
+          <br />
+          <TextField label="Password" type="password" value={password} onChange={this.handleChangePassword} />
+          <br />
+          <Button variant="contained" color="secondary" type="submit">
+            Submit
+          </Button>
         </form>
-        <p>
-          Token:
-          { token }
-        </p>
+        { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
       </div>
     );
   }
 }
+
+export default withCookies(Register);
+
+Register.propTypes = {
+  cookies: instanceOf(Cookies).isRequired,
+};

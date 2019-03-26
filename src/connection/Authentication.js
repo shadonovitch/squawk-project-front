@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { DirdProvider } from '../common/DirdContext';
+import store from '../redux/store';
+import { fetchProfile } from '../redux/actions';
 
 
 const styles = ({
@@ -28,7 +30,7 @@ class Authentication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '', password: '', token: '', redirect: false,
+      email: '', password: '', redirect: false,
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -59,16 +61,16 @@ class Authentication extends Component {
       }),
     }).then(response => response.json())
       .then((responseJson) => {
-        this.setState({ token: responseJson.token });
         cookies.set('token', responseJson.token);
+        store.dispatch(fetchProfile(responseJson.token));
         this.setState({ redirect: true });
       })
-      .catch(error => this.setState({ token: error.message }));
+      .catch(error => this.setState({ errorMessage: error.message }));
   }
 
   render() {
     const {
-      email, password, token, redirect,
+      email, password, errorMessage, redirect,
     } = this.state;
     if (redirect === true) {
       return (<Redirect to="/" />);
@@ -90,10 +92,7 @@ class Authentication extends Component {
             Submit
           </Button>
         </form>
-        <p>
-                        Token:
-          { token }
-        </p>
+        { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
       </div>
     );
   }
