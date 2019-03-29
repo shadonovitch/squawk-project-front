@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import DefaultPicture from '../DefaultUser.png';
 
 const UserCard = (props) => {
@@ -34,6 +35,9 @@ const UserCard = (props) => {
         <br />
         {email}
       </Typography>
+      <Button variant="contained" href="/edit">
+        Edit
+      </Button>
     </div>
   );
 };

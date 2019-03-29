@@ -1,12 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import HeaderAppBar from './HeaderAppBar';
 
 import dirdNotFoundImage from '../assets/dirdnotfound.jpg';
 
 function NotFound() {
   return (
     <div>
+      <HeaderAppBar />
       <Typography variant="h4">
           This is a 404!
       </Typography>
