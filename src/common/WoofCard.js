@@ -40,7 +40,7 @@ class WoofCard extends Component {
     return (
       <img
         src={DefaultPicture}
-        style={{ width: '200px', height: '200px' }}
+        style={{ width: '50px', height: '50px' }}
         alt="UserPicture"
       />
     );
