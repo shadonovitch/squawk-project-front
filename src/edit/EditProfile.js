@@ -26,10 +26,13 @@ class EditProfile extends Component {
       newEmail: '',
       newHandle: '',
       redirect: false,
+      file: null,
     };
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangeHandle = this.handleChangeHandle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangePicture = this.handleChangePicture.bind(this);
+    this.handleUploadPicture = this.handleUploadPicture.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +75,36 @@ class EditProfile extends Component {
       .catch(error => this.setState({ errorMessage: error.message }));
   }
 
+  handleChangePicture(event) {
+    this.setState({ file: event.target.files[0] });
+    event.preventDefault();
+  }
+
+  handleUploadPicture(event) {
+    const { file, token } = this.state;
+
+    event.preventDefault();
+    if (file === null) {
+      this.setState({ errorMessage: 'Should upload an image.' });
+    } else {
+      const formData = new FormData();
+      formData.append('picture', file);
+      fetch('https://dirdapi.chaz.pro/profile/picture', {
+        method: 'POST',
+        headers: {
+          // 'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }).then(response => response.json())
+        .then(() => {
+          this.setState({ errorMessage: '' });
+          store.dispatch(fetchProfilePicture(token));
+        })
+        .catch(error => this.setState({ errorMessage: error.message }));
+    }
+  }
+
   userImage() {
     const { pictureB64 } = this.props;
     if (pictureB64) {
@@ -109,14 +142,16 @@ class EditProfile extends Component {
           {errorMessage && <p style={{ color: 'darkred' }}>{errorMessage}</p>}
           {this.userImage()}
           <br />
-          <input
-            accept="image/jpeg"
-            type="file"
-          />
-          <br />
-          <Button variant="contained" component="span" className={styles.button}>
+          <form onSubmit={this.handleUploadPicture}>
+            <input
+              accept="image/jpeg"
+              type="file"
+              onChange={this.handleChangePicture}
+            />
+            <Button variant="contained" className={styles.button} type="submit">
             Edit Picture
-          </Button>
+            </Button>
+          </form>
           <br />
           <form onSubmit={this.handleSubmit}>
             <TextField label="Handle" type="text" placeholder={handle} value={newHandle} onChange={this.handleChangeHandle} />
