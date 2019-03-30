@@ -27,7 +27,7 @@ function ButtonAppBar() {
           <img
             src={DirdLogo}
             alt="DirdLogo"
-            style={{ maxWidth: '3%', height: 'auto', margin: 'auto' }}
+            style={{ maxWidth: '50px', height: '50px', margin: 'auto' }}
           />
         </Toolbar>
       </AppBar>
