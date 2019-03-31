@@ -8,6 +8,7 @@ import { instanceOf } from 'prop-types';
 import { DirdProvider } from '../common/DirdContext';
 import store from '../redux/store';
 import { fetchProfile } from '../redux/actions';
+import DirdLogo from '../DirdLogo.png';
 
 
 const styles = ({
@@ -50,6 +51,10 @@ class Authentication extends Component {
     const { email, password } = this.state;
     const { cookies } = this.props;
     event.preventDefault();
+    if (email === '' || password === '') {
+      this.setState({ errorMessage: 'Must supply credentials.' });
+      return;
+    }
     fetch('https://dirdapi.chaz.pro/auth/', {
       method: 'POST',
       headers: {
@@ -61,6 +66,10 @@ class Authentication extends Component {
       }),
     }).then(response => response.json())
       .then((responseJson) => {
+        if (responseJson.status === 'failed') {
+          this.setState({ redirect: false, errorMessage: responseJson.message });
+          return;
+        }
         cookies.set('token', responseJson.token);
         store.dispatch(fetchProfile(responseJson.token));
         this.setState({ redirect: true });
@@ -76,23 +85,32 @@ class Authentication extends Component {
       return (<Redirect to="/" />);
     }
     return (
-      <div className="Auth" style={styles.auth}>
-        <Typography variant="h4" gutterBottom>
-          Dird Project
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Auth
-        </Typography>
-        <form onSubmit={this.handleSubmit}>
-          <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
-          <br />
-          <TextField label="Password" type="password" value={password} onChange={this.handleChangePassword} />
-          <br />
-          <Button variant="contained" color="secondary" type="submit">
-            Submit
-          </Button>
-        </form>
-        { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
+      <div>
+        <img
+          src={DirdLogo}
+          alt="DirdLogo"
+          style={{ maxWidth: '250px', height: '250px', margin: 'auto' }}
+        />
+        <div className="Auth" style={styles.auth}>
+          <Typography variant="h4" gutterBottom>
+            Dird Project
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Auth
+          </Typography>
+          <form onSubmit={this.handleSubmit}>
+            <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
+            <br />
+            <TextField label="Password" type="password" value={password} onChange={this.handleChangePassword} />
+            <br />
+            <br />
+            <Button variant="contained" color="secondary" type="submit">
+              Submit
+            </Button>
+            <Button variant="contained" color="secondary" href="/register">Register</Button>
+          </form>
+          { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
+        </div>
       </div>
     );
   }

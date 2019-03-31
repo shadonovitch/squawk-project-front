@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button/Button';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router';
+import DirdLogo from '../DirdLogo.png';
 
 const styles = ({
   auth: {
@@ -79,25 +80,34 @@ class Register extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div className="Auth" style={styles.auth}>
-        <Typography variant="h4" gutterBottom>
+      <div>
+        <img
+          src={DirdLogo}
+          alt="DirdLogo"
+          style={{ maxWidth: '250px', height: '250px', margin: 'auto' }}
+        />
+        <div className="Auth" style={styles.auth}>
+          <Typography variant="h4" gutterBottom>
           Dird Project
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
           Register
-        </Typography>
-        <form onSubmit={this.handleSubmit}>
-          <TextField label="Handle" type="text" value={handle} onChange={this.handleChangeHandle} />
-          <br />
-          <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
-          <br />
-          <TextField label="Password" type="password" value={password} onChange={this.handleChangePassword} />
-          <br />
-          <Button variant="contained" color="secondary" type="submit">
+          </Typography>
+          <form onSubmit={this.handleSubmit}>
+            <TextField label="Handle" type="text" value={handle} onChange={this.handleChangeHandle} />
+            <br />
+            <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
+            <br />
+            <TextField label="Password" type="password" value={password} onChange={this.handleChangePassword} />
+            <br />
+            <br />
+            <Button variant="contained" color="secondary" type="submit">
             Submit
-          </Button>
-        </form>
-        { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
+            </Button>
+            <Button variant="contained" color="secondary" href="/auth">Login</Button>
+          </form>
+          { errorMessage && <Typography variant="h5">{errorMessage}</Typography>}
+        </div>
       </div>
     );
   }
