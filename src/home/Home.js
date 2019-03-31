@@ -23,8 +23,9 @@ class Home extends Component {
     super(props);
     const { cookies } = props;
     this.state = {
-      token: cookies.get('token') || null,
+      token: '',
     };
+    this.setState({ token: cookies.token });
   }
 
   componentDidMount() {
@@ -41,7 +42,7 @@ class Home extends Component {
     const {
       handle, email, pictureB64, userWoofs,
     } = this.props;
-    if (token === undefined) {
+    if (token === '') {
       return (<Redirect to="/auth" />);
     }
     return (
