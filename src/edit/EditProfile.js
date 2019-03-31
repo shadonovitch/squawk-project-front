@@ -92,7 +92,6 @@ class EditProfile extends Component {
       fetch('https://dirdapi.chaz.pro/profile/picture', {
         method: 'POST',
         headers: {
-          // 'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
         body: formData,

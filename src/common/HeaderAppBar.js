@@ -29,6 +29,7 @@ function ButtonAppBar() {
             alt="DirdLogo"
             style={{ maxWidth: '50px', height: '50px', margin: 'auto' }}
           />
+          <Button color="inherit" href="/logout">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
