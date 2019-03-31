@@ -10,6 +10,7 @@ import Home from './home/Home';
 import User from './user/User';
 import NotFound from './common/NotFound';
 import EditProfile from './edit/EditProfile';
+import Logout from './common/Logout';
 
 const App = () => {
   document.body.style = 'background: darkgray';
@@ -23,6 +24,7 @@ const App = () => {
             <Route exact path="/auth" component={Authentication} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/edit" component={EditProfile} />
+            <Route exact path="/logout" component={Logout} />
             <Route exact path="/404" component={NotFound} />
             <Route exact path="/:handle" component={User} />
           </Switch>
