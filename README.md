@@ -1,5 +1,5 @@
 # DirdProject Front
-[![CircleCI](https://circleci.com/gh/shadonovitch/dird-project-front.svg?style=svg)](https://circleci.com/gh/shadonovitch/dird-project-front)
+[![CircleCI](https://circleci.com/gh/shadonovitch/dird-project-front.svg?style=svg)](https://circleci.com/gh/shadonovitch/dird-project-front)  
 A ReactJS Front-end for DirdProject
 
 # Installation
