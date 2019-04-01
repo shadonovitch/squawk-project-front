@@ -22,10 +22,13 @@ class Home extends Component {
   constructor(props) {
     super(props);
     const { cookies } = props;
+    let token = '';
+    if (cookies.get('token') !== null) {
+      token = cookies.get('token');
+    }
     this.state = {
-      token: '',
+      token,
     };
-    this.setState({ token: cookies.token });
   }
 
   componentDidMount() {
