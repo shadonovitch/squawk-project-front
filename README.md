@@ -1,4 +1,5 @@
 # DirdProject Front
+[![CircleCI](https://circleci.com/gh/shadonovitch/dird-project-front.svg?style=svg)](https://circleci.com/gh/shadonovitch/dird-project-front)
 A ReactJS Front-end for DirdProject
 
 # Installation
@@ -20,7 +21,7 @@ $ npm test
 This frontend should support the DirdProject. It is a React Project that will use
 the DirdAPI and [DirdProject Backend](https://github.com/shadonovitch/dird-project-back).  
 Main features to be implemented are:   
-  - [ ] Consuming the DirdAPI
-  - [ ] Register, authenticate users
-  - [ ] Post public "Woofs": 145 char-long public messages
+  - [x] Consuming the DirdAPI
+  - [x] Register, authenticate users
+  - [x] Post public "Woofs": 145 char-long public messages
   - [ ] Private messaging
