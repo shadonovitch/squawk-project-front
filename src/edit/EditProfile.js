@@ -22,7 +22,7 @@ class EditProfile extends Component {
     super(props);
     const { cookies } = props;
     this.state = {
-      token: cookies.get('token') || null,
+      token: cookies.get('token') || undefined,
       newEmail: '',
       newHandle: '',
       redirect: false,
@@ -129,10 +129,13 @@ class EditProfile extends Component {
       handle, email,
     } = this.props;
     const {
-      newEmail, newHandle, redirect, errorMessage,
+      newEmail, newHandle, redirect, errorMessage, token,
     } = this.state;
     if (redirect === true) {
       return (<Redirect to="/" />);
+    }
+    if (token === undefined) {
+      return (<Redirect to="/auth" />);
     }
     return (
       <div>
