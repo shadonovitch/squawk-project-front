@@ -45,7 +45,7 @@ class Home extends Component {
     const {
       handle, email, pictureB64, userWoofs,
     } = this.props;
-    if (token === '') {
+    if (token === undefined) {
       return (<Redirect to="/auth" />);
     }
     return (
