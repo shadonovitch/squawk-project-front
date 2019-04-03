@@ -23,7 +23,6 @@ function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" href="/">Home </Button>
-          <Button color="inherit" href="/messenger"> Messages </Button>
           <img
             src={DirdLogo}
             alt="DirdLogo"

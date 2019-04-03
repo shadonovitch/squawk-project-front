@@ -32,7 +32,7 @@ jobs:
     - run:
         name: Deploy to dirdapi.chaz.pro
         command: |
-          ssh $SSH_USER@$SSH_HOST "~/deploy/dirdfront.sh"
+          ssh $SSH_USER@$SSH_HOST "~/deploy/squawkfront.sh"
 
 
 workflows:

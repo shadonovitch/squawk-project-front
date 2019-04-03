@@ -2,31 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import WoofCard from './WoofCard';
+import SourcesCard from './SourcesCard';
 
 const styles = {
-  WoofList: {
+  SourcesList: {
     backgroundColor: '#5ac9dd',
     margin: 'auto',
     width: '50%',
   },
 };
 
-class WoofList extends Component {
+class SourcesList extends Component {
   componentDidMount() {
   }
 
   render() {
-    const { woofArray } = this.props;
-    if (woofArray === undefined) {
+    const { sourcesArray } = this.props;
+    if (sourcesArray === undefined) {
       return <div />;
     }
     return (
-      <div style={styles.WoofList}>
+      <div style={styles.SourcesList}>
         <List>
-          {woofArray.map(item => (
+          {sourcesArray.map(item => (
             <ListItem key={item.id}>
-              <WoofCard key={item.id} handle={item.handle} txt={item.text} />
+              <SourcesCard key={item.id} name={item.host} link={item.link} />
             </ListItem>
           ))}
         </List>
@@ -35,11 +35,11 @@ class WoofList extends Component {
   }
 }
 
-WoofList.propTypes = {
-  woofArray: PropTypes.arrayOf(PropTypes.shape({
-    handle: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+SourcesList.propTypes = {
+  sourcesArray: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
   }).isRequired).isRequired,
 };
 
-export default WoofList;
+export default SourcesList;
