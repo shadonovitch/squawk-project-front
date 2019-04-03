@@ -1,4 +1,4 @@
-# DirdProject Front
+# SquawkProject Front
 A ReactJS Front-end for SquawkProject
 
 # Installation
