@@ -5,10 +5,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import { DirdProvider } from '../common/DirdContext';
-import store from '../redux/store';
-import { fetchProfile } from '../redux/actions';
-import DirdLogo from '../DirdLogo.png';
 
 
 const styles = ({
@@ -55,7 +51,7 @@ class Authentication extends Component {
       this.setState({ errorMessage: 'Must supply credentials.' });
       return;
     }
-    fetch('https://dirdapi.chaz.pro/auth/', {
+    fetch('https://squawkapi.chaz.pro/auth', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -71,7 +67,6 @@ class Authentication extends Component {
           return;
         }
         cookies.set('token', responseJson.token);
-        store.dispatch(fetchProfile(responseJson.token));
         this.setState({ redirect: true });
       })
       .catch(error => this.setState({ errorMessage: error.message }));
@@ -86,14 +81,9 @@ class Authentication extends Component {
     }
     return (
       <div>
-        <img
-          src={DirdLogo}
-          alt="DirdLogo"
-          style={{ maxWidth: '250px', height: '250px', margin: 'auto' }}
-        />
         <div className="Auth" style={styles.auth}>
           <Typography variant="h4" gutterBottom>
-            Dird Project
+            Squawk Project
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
             Auth
@@ -116,10 +106,8 @@ class Authentication extends Component {
   }
 }
 
-export default withCookies(Authentication);
-
-Authentication.contextType = DirdProvider;
-
 Authentication.propTypes = {
   cookies: instanceOf(Cookies).isRequired,
 };
+
+export default withCookies(Authentication);

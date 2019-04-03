@@ -3,20 +3,19 @@ import { withCookies, Cookies } from 'react-cookie';
 import PropTypes, { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserCard from '../common/UserCard';
-import WoofForm from '../common/WoofForm';
-import WoofList from '../common/WoofList';
 import store from '../redux/store';
 import HeaderAppBar from '../common/HeaderAppBar';
-import { fetchProfile, fetchProfilePicture, fetchUserWoofs } from '../redux/actions';
+import { fetchSources } from '../redux/actions';
+import SourcesForm from '../common/SourcesForm';
+import SourcesList from '../common/SourcesList';
 
-const styles = {
+/* const styles = {
   UserCard: {
     float: 'left',
   },
   Content: {
   },
-};
+}; */
 
 class Home extends Component {
   constructor(props) {
@@ -33,29 +32,23 @@ class Home extends Component {
 
   componentDidMount() {
     const { token } = this.state;
-    store.dispatch(fetchProfile(token));
-    store.dispatch(fetchProfilePicture(token));
-    store.dispatch(fetchUserWoofs(token));
+    // store.dispatch(fetchProfile(token));
+    store.dispatch(fetchSources(token));
   }
 
   render() {
     const {
       token,
     } = this.state;
-    const {
-      handle, email, pictureB64, userWoofs,
-    } = this.props;
+    const { sources } = this.props;
     if (token === undefined) {
       return (<Redirect to="/auth" />);
     }
     return (
       <div>
         <HeaderAppBar />
-        <UserCard picture={pictureB64} handle={handle} email={email} />
-        <div style={styles.Content}>
-          <WoofForm token={token} />
-          <WoofList woofArray={userWoofs} />
-        </div>
+        <SourcesForm token={token} />
+        <SourcesList sourcesArray={sources} />
       </div>
     );
   }
@@ -63,10 +56,9 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    handle: state.profile.handle,
+    username: state.profile.username,
     email: state.profile.email,
-    userWoofs: state.userWoofs,
-    pictureB64: state.pictureB64,
+    sources: state.sources,
     loading: state.loading,
     error: state.error,
   };
@@ -74,10 +66,7 @@ function mapStateToProps(state) {
 
 Home.propTypes = {
   cookies: instanceOf(Cookies).isRequired,
-  handle: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  pictureB64: PropTypes.string.isRequired,
-  userWoofs: PropTypes.shape.isRequired,
+  sources: PropTypes.shape().isRequired,
 };
 
 export default withCookies(connect(mapStateToProps)(Home));

@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button/Button';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router';
-import DirdLogo from '../DirdLogo.png';
 
 const styles = ({
   auth: {
@@ -16,7 +15,7 @@ const styles = ({
     bottom: 0,
     left: 0,
     width: '500px',
-    height: '300px',
+    height: '350px',
     backgroundColor: '#ccc',
     borderRadius: '3px',
   },
@@ -26,11 +25,11 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '', password: '', handle: '', redirect: false,
+      email: '', password: '', username: '', redirect: false,
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangeHandle = this.handleChangeHandle.bind(this);
+    this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -43,23 +42,23 @@ class Register extends Component {
     this.setState({ password: event.target.value });
   }
 
-  handleChangeHandle(event) {
-    this.setState({ handle: event.target.value });
+  handleChangeUsername(event) {
+    this.setState({ username: event.target.value });
   }
 
   handleSubmit(event) {
-    const { email, password, handle } = this.state;
+    const { email, password, username } = this.state;
     const { cookies } = this.props;
 
     event.preventDefault();
-    fetch('https://dirdapi.chaz.pro/register', {
+    fetch('https://squawkapi.chaz.pro/register', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email, password, handle,
+        email, password, username,
       }),
     }).then(response => response.json())
       .then((responseJson) => {
@@ -74,27 +73,22 @@ class Register extends Component {
 
   render() {
     const {
-      email, password, handle, errorMessage, redirect,
+      email, password, username, errorMessage, redirect,
     } = this.state;
     if (redirect === true) {
       return <Redirect to="/" />;
     }
     return (
       <div>
-        <img
-          src={DirdLogo}
-          alt="DirdLogo"
-          style={{ maxWidth: '250px', height: '250px', margin: 'auto' }}
-        />
         <div className="Auth" style={styles.auth}>
           <Typography variant="h4" gutterBottom>
-          Dird Project
+          Squawk Project
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
           Register
           </Typography>
           <form onSubmit={this.handleSubmit}>
-            <TextField label="Handle" type="text" value={handle} onChange={this.handleChangeHandle} />
+            <TextField label="Username" type="text" value={username} onChange={this.handleChangeUsername} />
             <br />
             <TextField label="E-mail" type="text" value={email} onChange={this.handleChangeEmail} />
             <br />

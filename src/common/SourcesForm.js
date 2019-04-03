@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import store from '../redux/store';
-import { fetchUserWoofs } from '../redux/actions';
+import { fetchSources } from '../redux/actions';
 
 const styles = {
   WoofForm: {
@@ -13,25 +13,31 @@ const styles = {
   },
 };
 
-class WoofForm extends Component {
+class SourcesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      woof: '',
+      name: '',
+      link: '',
     };
-    this.handleChangeWoof = this.handleChangeWoof.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeLink = this.handleChangeLink.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeWoof(event) {
-    this.setState({ woof: event.target.value });
+  handleChangeName(event) {
+    this.setState({ name: event.target.value });
+  }
+
+  handleChangeLink(event) {
+    this.setState({ link: event.target.value });
   }
 
   handleSubmit(event) {
-    const { woof } = this.state;
+    const { name, link } = this.state;
     const { token } = this.props;
     event.preventDefault();
-    fetch('https://dirdapi.chaz.pro/woof', {
+    fetch('https://squawkapi.chaz.pro/source', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,19 +45,23 @@ class WoofForm extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text: woof,
+        name, link,
       }),
     }).then(() => {
-      store.dispatch(fetchUserWoofs(token));
+      store.dispatch(fetchSources(token));
     });
   }
 
   render() {
-    const { woof } = this.state;
+    const { name, link } = this.state;
     return (
       <div style={styles.WoofForm}>
+        <p> Squawk Source Form : </p>
         <form onSubmit={this.handleSubmit}>
-          <TextField label="Post a Woof !" type="text" value={woof} onChange={this.handleChangeWoof} />
+          <TextField label="Name" type="text" value={name} onChange={this.handleChangeName} />
+          <br />
+          <TextField label="Link" type="text" value={link} onChange={this.handleChangeLink} />
+          <br />
           <Button variant="contained" color="secondary" type="submit">
             Submit
           </Button>
@@ -61,8 +71,8 @@ class WoofForm extends Component {
   }
 }
 
-WoofForm.propTypes = {
+SourcesForm.propTypes = {
   token: PropTypes.string.isRequired,
 };
 
-export default WoofForm;
+export default SourcesForm;

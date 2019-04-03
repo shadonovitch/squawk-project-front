@@ -1,20 +1,14 @@
 import {
-  FETCH_PROFILE_BEGIN,
-  FETCH_PROFILE_SUCCESS,
-  FETCH_PROFILE_FAILURE,
-  FETCH_PROFILE_PICTURE_BEGIN,
-  FETCH_PROFILE_PICTURE_SUCCESS,
-  FETCH_PROFILE_PICTURE_FAILURE,
-  FETCH_WOOFS_BEGIN, FETCH_WOOFS_SUCCESS, FETCH_WOOFS_FAILURE,
+  FETCH_PROFILE_BEGIN, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE,
+  FETCH_SOURCES_BEGIN, FETCH_SOURCES_SUCCESS, FETCH_SOURCES_FAILURE,
 } from './actions';
 
 const initialState = {
   profile: {
-    handle: '',
+    username: '',
     email: '',
   },
-  userWoofs: [],
-  pictureB64: '',
+  sources: [],
   loading: false,
   token: '',
   error: null,
@@ -43,38 +37,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         error: action.payload.error,
       };
-    case FETCH_PROFILE_PICTURE_BEGIN:
+    case FETCH_SOURCES_BEGIN:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FETCH_PROFILE_PICTURE_SUCCESS:
-      return {
-        ...state,
-        pictureB64: action.payload.pictureB64,
-        loading: true,
-        error: null,
-      };
-    case FETCH_PROFILE_PICTURE_FAILURE:
-      return {
-        ...state,
-        error: action.payload.error,
-      };
-    case FETCH_WOOFS_BEGIN:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case FETCH_WOOFS_SUCCESS:
+    case FETCH_SOURCES_SUCCESS:
       return {
         ...state,
         loading: false,
-        userWoofs: action.payload.woofArray,
-        error: null,
+        sources: action.payload.sources,
       };
-    case FETCH_WOOFS_FAILURE:
+    case FETCH_SOURCES_FAILURE:
       return {
         ...state,
         error: action.payload.error,

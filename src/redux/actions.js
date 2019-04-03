@@ -2,13 +2,9 @@ export const FETCH_PROFILE_BEGIN = 'FETCH_PROFILE_BEGIN';
 export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
 export const FETCH_PROFILE_FAILURE = 'FETCH_PROFILE_FAILURE';
 
-export const FETCH_PROFILE_PICTURE_BEGIN = 'FETCH_PROFILE_PICTURE_BEGIN';
-export const FETCH_PROFILE_PICTURE_SUCCESS = 'FETCH_PROFILE_PICTURE_SUCCESS';
-export const FETCH_PROFILE_PICTURE_FAILURE = 'FETCH_PROFILE_PICTURE_FAILURE';
-
-export const FETCH_WOOFS_BEGIN = 'FETCH_WOOFS_BEGIN';
-export const FETCH_WOOFS_SUCCESS = 'FETCH_WOOFS_SUCCESS';
-export const FETCH_WOOFS_FAILURE = 'FETCH_WOOFS_FAILURE';
+export const FETCH_SOURCES_BEGIN = 'FETCH_SOURCES_BEGIN';
+export const FETCH_SOURCES_SUCCESS = 'FETCH_SOURCES_SUCCESS';
+export const FETCH_SOURCES_FAILURE = 'FETCH_SOURCES_FAILURE';
 
 export const fetchProfileBegin = () => ({
   type: FETCH_PROFILE_BEGIN,
@@ -24,56 +20,25 @@ export const fetchProfileFailure = error => ({
   payload: { error },
 });
 
-export const fetchProfilePictureBegin = () => ({
-  type: FETCH_PROFILE_PICTURE_BEGIN,
+
+export const fetchSourcesBegin = () => ({
+  type: FETCH_SOURCES_BEGIN,
 });
 
-export const fetchProfilePictureSuccess = pictureB64 => ({
-  type: FETCH_PROFILE_PICTURE_SUCCESS,
-  payload: { pictureB64 },
+export const fetchSourcesSuccess = sources => ({
+  type: FETCH_SOURCES_SUCCESS,
+  payload: { sources },
 });
 
-export const fetchProfilePictureFailure = error => ({
-  type: FETCH_PROFILE_PICTURE_FAILURE,
+export const fetchSourcesFailure = error => ({
+  type: FETCH_SOURCES_FAILURE,
   payload: { error },
 });
-
-export const fetchWoofsBegin = () => ({
-  type: FETCH_WOOFS_BEGIN,
-});
-
-export const fetchWoofsSuccess = woofArray => ({
-  type: FETCH_WOOFS_SUCCESS,
-  payload: { woofArray },
-});
-
-export const fetchWoofsFailure = error => ({
-  type: FETCH_WOOFS_FAILURE,
-  payload: { error },
-});
-
-export function fetchUserWoofs(token) {
-  return (dispatch) => {
-    dispatch(fetchWoofsBegin());
-    fetch('https://dirdapi.chaz.pro/woofs', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(response => response.json())
-      .then((responseJson) => {
-        dispatch(fetchWoofsSuccess(responseJson));
-      })
-      .catch(error => dispatch(fetchWoofsFailure(error)));
-  };
-}
 
 export function fetchProfile(token) {
   return (dispatch) => {
     dispatch(fetchProfileBegin());
-    fetch('https://dirdapi.chaz.pro/profile', {
+    fetch('https://squawkapi.chaz.pro/profile', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -83,27 +48,25 @@ export function fetchProfile(token) {
     })
       .then(response => response.json())
       .then((responseJson) => {
-        const { handle, email } = responseJson;
-        const profile = { handle, email };
+        const { username, email } = responseJson;
+        const profile = { username, email };
         dispatch(fetchProfileSuccess(profile));
       }).catch(error => dispatch(fetchProfileFailure(error)));
   };
 }
 
-export function fetchProfilePicture(token) {
+export function fetchSources(token) {
   return (dispatch) => {
-    dispatch(fetchProfilePictureBegin());
-    fetch('https://dirdapi.chaz.pro/profile/picture', {
+    dispatch(fetchSourcesBegin());
+    fetch('https://squawkapi.chaz.pro/sources', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
-    })
-      .then(response => response.json())
+    }).then(response => response.json())
       .then((responseJson) => {
-        const { pictureB64 } = responseJson;
-        dispatch(fetchProfilePictureSuccess(pictureB64));
-      }).catch(error => dispatch(fetchProfilePictureFailure(error)));
+        dispatch(fetchSourcesSuccess(responseJson.sources));
+      }).catch(error => dispatch(fetchSourcesFailure(error)));
   };
 }
