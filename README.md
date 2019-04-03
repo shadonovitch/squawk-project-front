@@ -1,6 +1,5 @@
 # DirdProject Front
-[![CircleCI](https://circleci.com/gh/shadonovitch/dird-project-front.svg?style=svg)](https://circleci.com/gh/shadonovitch/dird-project-front)  
-A ReactJS Front-end for DirdProject
+A ReactJS Front-end for SquawkProject
 
 # Installation
 Clone the repository, install the dependencies, then run using `npm`: 
@@ -18,10 +17,11 @@ $ npm test
 
 # Objectives
 
-This frontend should support the DirdProject. It is a React Project that will use
-the DirdAPI and [DirdProject Backend](https://github.com/shadonovitch/dird-project-back).  
+This frontend should support the SquawkProject. It is a React Project that will use
+the SquawkAPI and [SquawkProject Backend](https://github.com/shadonovitch/squawk-project-back).  
 Main features to be implemented are:   
-  - [x] Consuming the DirdAPI
+  - [x] Consuming the SquawkdAPI
   - [x] Register, authenticate users
-  - [x] Post public "Woofs": 145 char-long public messages
-  - [ ] Private messaging
+  - [ ] CRUD sources : A link to an RSS/JSON content
+  - [ ] Retrieve the content of sources
+  
