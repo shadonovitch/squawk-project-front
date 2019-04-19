@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import DirdLogo from '../DirdLogo.png';
+import SquawkLogo from '../SquawkLogo.png';
 
 const styles = {
   root: {
@@ -24,8 +24,8 @@ function ButtonAppBar() {
         <Toolbar>
           <Button color="inherit" href="/">Home </Button>
           <img
-            src={DirdLogo}
-            alt="DirdLogo"
+            src={SquawkLogo}
+            alt="SquawkLogo"
             style={{ maxWidth: '50px', height: '50px', margin: 'auto' }}
           />
           <Button color="inherit" href="/logout">Logout</Button>

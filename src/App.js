@@ -9,6 +9,7 @@ import Register from './connection/Register';
 import Home from './home/Home';
 import NotFound from './common/NotFound';
 import Logout from './common/Logout';
+import SourceView from './common/SourceView';
 
 const App = () => {
   document.body.style = 'background: darkgray';
@@ -18,11 +19,12 @@ const App = () => {
       <Provider store={store}>
         <CookiesProvider>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/auth" component={Authentication} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/logout" component={Logout} />
-            <Route exact path="/404" component={NotFound} />
+            <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/auth" render={() => <Authentication />} />
+            <Route exact path="/register" render={() => <Register />} />
+            <Route exact path="/logout" render={() => <Logout />} />
+            <Route exact path="/404" render={() => <NotFound />} />
+            <Route exact path="/:sourceid" render={() => <SourceView />} />
           </Switch>
         </CookiesProvider>
       </Provider>

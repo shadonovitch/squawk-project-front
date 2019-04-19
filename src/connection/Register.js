@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button/Button';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Redirect } from 'react-router';
+import SquawkLogo from '../SquawkLogo.png';
 
 const styles = ({
   auth: {
@@ -80,6 +81,11 @@ class Register extends Component {
     }
     return (
       <div>
+        <img
+          src={SquawkLogo}
+          alt="SquawkLogo"
+          style={{ maxWidth: '250px', height: '250px', margin: 'auto' }}
+        />
         <div className="Auth" style={styles.auth}>
           <Typography variant="h4" gutterBottom>
           Squawk Project

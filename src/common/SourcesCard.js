@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router';
 
 class SourcesCard extends Component {
   constructor(props) {
@@ -13,10 +14,16 @@ class SourcesCard extends Component {
   }
 
   render() {
-    const { name, link } = this.props;
+    const {
+      name, link, history, sourceID,
+    } = this.props;
     return (
       <div>
-        <div style={{ float: 'right', paddingLeft: '20px' }}>
+        <div
+          style={{ float: 'right', paddingLeft: '20px' }}
+          aria-hidden
+          onClick={() => history.push(`/${sourceID}`)}
+        >
           <Typography>
             {name}
           </Typography>
@@ -32,6 +39,8 @@ class SourcesCard extends Component {
 SourcesCard.propTypes = {
   name: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
+  sourceID: PropTypes.string.isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
-export default SourcesCard;
+export default withRouter(SourcesCard);
