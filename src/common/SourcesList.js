@@ -26,7 +26,12 @@ class SourcesList extends Component {
         <List>
           {sourcesArray.map(item => (
             <ListItem key={item.id}>
-              <SourcesCard key={item.id} name={item.host} link={item.link} />
+              <SourcesCard
+                key={item.id}
+                name={item.host}
+                link={item.link}
+                sourceID={item.source_id}
+              />
             </ListItem>
           ))}
         </List>
@@ -39,6 +44,7 @@ SourcesList.propTypes = {
   sourcesArray: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
+    source_id: PropTypes.string.isRequired,
   }).isRequired).isRequired,
 };
 
