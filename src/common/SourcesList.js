@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import uniqueid from 'uniqid';
 import SourcesCard from './SourcesCard';
+
 
 const styles = {
   SourcesList: {
@@ -25,9 +27,9 @@ class SourcesList extends Component {
       <div style={styles.SourcesList}>
         <List>
           {sourcesArray.map(item => (
-            <ListItem key={item.id}>
+            <ListItem key={uniqueid()}>
               <SourcesCard
-                key={item.id}
+                key={uniqueid()}
                 name={item.host}
                 link={item.link}
                 sourceID={item.source_id}
@@ -41,11 +43,7 @@ class SourcesList extends Component {
 }
 
 SourcesList.propTypes = {
-  sourcesArray: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-    source_id: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+  sourcesArray: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default SourcesList;

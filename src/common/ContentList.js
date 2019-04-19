@@ -30,7 +30,7 @@ class ContentList extends Component {
       <div style={styles.ContentList}>
         <List>
           {content.map(item => (
-            <div>
+            <div key={uniqueid()}>
               <ListItem key={uniqueid()}>
                 <ContentItem
                   key={uniqueid()}

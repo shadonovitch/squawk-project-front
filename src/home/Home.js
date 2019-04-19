@@ -32,7 +32,6 @@ class Home extends Component {
 
   componentDidMount() {
     const { token } = this.state;
-    // store.dispatch(fetchProfile(token));
     store.dispatch(fetchSources(token));
   }
 
@@ -66,7 +65,7 @@ function mapStateToProps(state) {
 
 Home.propTypes = {
   cookies: instanceOf(Cookies).isRequired,
-  sources: PropTypes.shape().isRequired,
+  sources: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default withCookies(connect(mapStateToProps)(Home));
