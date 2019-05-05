@@ -28,6 +28,7 @@ class SourceView extends Component {
       },
     }).then((response) => {
       if (response.status === 404) history.push('/404');
+      if (response.status === 422) throw new Error('Malformed content found at source target.');
       return response.json();
     })
       .then((responseJson) => {
@@ -41,7 +42,7 @@ class SourceView extends Component {
       <div>
         <HeaderAppBar />
         {errorMessage && <p style={{ color: 'darkred' }}>{errorMessage}</p>}
-        <ContentList content={contentArray} />
+        { contentArray.length > 0 && <ContentList content={contentArray} /> }
       </div>
     );
   }

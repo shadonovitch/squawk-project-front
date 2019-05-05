@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withCookies, Cookies } from 'react-cookie';
-import PropTypes, { instanceOf } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../redux/store';
@@ -64,7 +64,7 @@ function mapStateToProps(state) {
 }
 
 Home.propTypes = {
-  cookies: instanceOf(Cookies).isRequired,
+  cookies: PropTypes.instanceOf(Cookies).isRequired,
   sources: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
